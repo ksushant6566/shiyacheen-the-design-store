@@ -1,0 +1,47 @@
+html {
+    font-size: 10px;
+}
+
+html,
+body {
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+html,
+body,
+#root,
+.App {
+    height: 100%;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+}
+
+*, ::before, ::after {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+a {
+
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a, a:hover {
+    transition : all .4s ease-in-out;
+}
+
+.main {
+    width: 100%;
+    height: calc(100% - 6.5rem);
+    max-width: 1450px;
+    padding: 0 5%;
+    margin: 0 auto;
+}
