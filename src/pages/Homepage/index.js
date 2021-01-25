@@ -12,23 +12,4 @@ const Homepage = props => {
     )
 }
 
-export default Homepage
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* <div className='dir'>
-    <img className='dir-img' src={Men} alt='MEN DIR'></img>
-</div>
-<div className='dir'>
-    <img className='dir-img' src={Women} alt='WOMEN DIR'></img>
-</div> */}
+export default Homepage;
