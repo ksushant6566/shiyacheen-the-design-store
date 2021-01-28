@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // components
 import Header from '../components/Header';
@@ -8,7 +8,7 @@ const MainLayout = props => {
 
     return (
         <div>
-            <Header />
+            <Header {...props} />
             <div className='main'>
                 {props.children}
             </div>

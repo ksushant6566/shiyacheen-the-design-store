@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React from 'react';
 
 // components
 import Header from '../components/Header';
@@ -9,7 +9,7 @@ const HomepageLayout = props => {
 
     return (
         <div className='fullHeight'>
-            <Header />
+            <Header {...props} />
             {props.children}
             <Footer />
         </div>
