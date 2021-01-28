@@ -1,4 +1,4 @@
-.signin {
+.signup {
     display: block;
     width: 100%;
     max-width: 40rem;
@@ -15,12 +15,13 @@
             text-align: center;
             display: block;
             width: 100%;
-            margin: 0 auto 3rem;
+            margin: 0 auto;
             padding: 0;
         }
 
-        .socialSignIn {
-            margin: .5rem auto 0;
+        form {
+            margin: 3rem auto 0;
         }
+
     }
 }

@@ -13,7 +13,7 @@
     .logo {
         width: 13rem;
         position: absolute;
-        top: 50%; left: 3rem;
+        top: 50%; left: 5%;
         transform: translateY(-50%);
 
         img {
@@ -25,7 +25,7 @@
 
     .callToActions {
         position: absolute;
-        top: 50%; right: 3rem;
+        top: 50%; right: 5%;
         transform: translateY(-50%);
         --webkit-transform: translateY(-50%);
         -moz-transform: translateY(-50%);

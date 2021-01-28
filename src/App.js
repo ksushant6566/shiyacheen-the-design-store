@@ -22,10 +22,9 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState();
 
-  let authListner = null;
-
+  
   useEffect(() => {
-    authListner = auth.onAuthStateChanged( async userAuth => {
+    let authListner = auth.onAuthStateChanged( async userAuth => {
       if(userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot(snapshot => {
@@ -52,7 +51,8 @@ function App() {
             <Homepage/>
           </HomepageLayout>
         )} />
-        <Route path='/registration' render={() => (
+        <Route path='/registration' 
+        render={() => currentUser ? <Redirect to='/' /> : (
           <MainLayout currentUser={currentUser}>
             <Registration />
           </MainLayout>
