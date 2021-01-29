@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import './styles.scss';
 
 // components
@@ -10,7 +11,7 @@ import { auth, handleUserProfile } from '../../firebase/utils';
 import AuthWrapper from '../AuthWrapper';
 
 const SignUp = props => {
-    
+
     const [state, setState] = useState({
         displayName: '',
         email: '',
@@ -34,15 +35,15 @@ const SignUp = props => {
         const { displayName, email, password, confirmPassword } = state;
 
         const errs = [];
-        if(password !== confirmPassword) {
-           errs.push('passwords don\'t match!')
-           setState({
+        if (password !== confirmPassword) {
+            errs.push('passwords don\'t match!')
+            setState({
                 ...state,
                 err: errs
             });
             return;
         }
-        if(state.displayName.length < 3) {
+        if (state.displayName.length < 3) {
             errs.push('name should be atleast 3 characters long');
             setState({
                 ...state,
@@ -55,7 +56,6 @@ const SignUp = props => {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
             await handleUserProfile(user, { displayName });
-
             setState({
                 displayName: '',
                 email: '',
@@ -63,8 +63,9 @@ const SignUp = props => {
                 confirmPassword: '',
                 err: [''],
             })
+            props.history.push('/');
 
-        } catch(err) {
+        } catch (err) {
             console.log(err);
         }
 
@@ -74,51 +75,51 @@ const SignUp = props => {
         <AuthWrapper
             headline='signup'
         >
-        {
-            state.err.length > 0 && (
-                state.err.map((er, i) => {
-                    return (
-                        <h6 key={i}>{er}</h6>
-                    )
-                })
-            )
-        }
+            {
+                state.err.length > 0 && (
+                    state.err.map((er, i) => {
+                        return (
+                            <h6 key={i}>{er}</h6>
+                        )
+                    })
+                )
+            }
             <form onSubmit={handleFormSubmit}>
-                    <FormInput
-                        type="text"
-                        name="displayName"
-                        value={state.displayName}
-                        placeholder="Full Name"
-                        onChange={handleChange}
-                    />
-                    <FormInput
-                        type="email"
-                        name="email"
-                        value={state.email}
-                        placeholder="Email"
-                        onChange={handleChange}
-                    />
-                    <FormInput
-                        type="password"
-                        name="password"
-                        value={state.password}
-                        placeholder="Password"
-                        onChange={handleChange}
-                    />
-                    <FormInput
-                        type="password"
-                        name="confirmPassword"
-                        value={state.confirmPassword}
-                        placeholder="Confirm Password"
-                        onChange={handleChange}
-                    />
+                <FormInput
+                    type="text"
+                    name="displayName"
+                    value={state.displayName}
+                    placeholder="Full Name"
+                    onChange={handleChange}
+                />
+                <FormInput
+                    type="email"
+                    name="email"
+                    value={state.email}
+                    placeholder="Email"
+                    onChange={handleChange}
+                />
+                <FormInput
+                    type="password"
+                    name="password"
+                    value={state.password}
+                    placeholder="Password"
+                    onChange={handleChange}
+                />
+                <FormInput
+                    type="password"
+                    name="confirmPassword"
+                    value={state.confirmPassword}
+                    placeholder="Confirm Password"
+                    onChange={handleChange}
+                />
 
-                    <Button type='submit'>
-                        Register
+                <Button type='submit'>
+                    Register
                     </Button>
-                </form>    
+            </form>
         </AuthWrapper>
     );
 }
 
-export default SignUp;
+export default withRouter(SignUp);

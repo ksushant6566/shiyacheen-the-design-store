@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './styles.scss';
 
 import { auth, signInWithGoogle } from '../../firebase/utils';
@@ -34,6 +34,7 @@ const SignIn = props => {
                 email: '',
                 password: '',
             })
+            props.history.push('/');
 
         } catch (err) {
             console.log(err);
@@ -86,4 +87,4 @@ const SignIn = props => {
     )
 }
         
-export default SignIn;
+export default withRouter(SignIn);

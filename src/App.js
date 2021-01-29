@@ -10,7 +10,8 @@ import './default.scss'
 // utils
 import { auth, handleUserProfile } from './firebase/utils'
 
-// components
+// hoc
+import WithAuth from './hoc/withAuth';
 
 // layouts
 import MainLayout from './layouts/MainLayout';
@@ -21,14 +22,15 @@ import Homepage from './pages/Homepage'
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Recovery from './pages/Recovery';
+import Dashboard from './pages/Dashboard';
 
 
 function App(props) {
   const { currentUser, setCurrentUser } = props;
 
   useEffect(() => {
-    let authListner = auth.onAuthStateChanged( async userAuth => {
-      if(userAuth) {
+    let authListner = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot(snapshot => {
           setCurrentUser({
@@ -42,7 +44,9 @@ function App(props) {
       }
     })
 
-    return (() => { authListner() });
+    return () => {
+      authListner()
+    };
   }, []);
 
 
@@ -52,29 +56,37 @@ function App(props) {
 
         <Route exact path='/' render={() => (
           <HomepageLayout >
-            <Homepage/>
+            <Homepage />
           </HomepageLayout>
         )} />
 
-        <Route path='/registration' 
-        render={() => currentUser ? <Redirect to='/' /> : (
-          <MainLayout >
-            <Registration />
-          </MainLayout>
-        )} />
+        <Route path='/registration'
+          render={() => (
+            <MainLayout >
+              <Registration />
+            </MainLayout>
+          )} />
 
         <Route path='/login'
-          render={() => currentUser ? <Redirect to='/' /> : (
+          render={() => (
             <MainLayout>
               <Login />
             </MainLayout>
           )} />
 
-          <Route path='/recovery' render={() => (
+        <Route path='/recovery' render={() => (
+          <MainLayout>
+            <Recovery />
+          </MainLayout>
+        )} />
+
+        <Route path='/dashboard' render={() => (
+          <WithAuth>
             <MainLayout>
-              <Recovery />
+              <Dashboard />
             </MainLayout>
-          )} />
+          </WithAuth>
+        )} />
       </Switch>
     </div>
   );
