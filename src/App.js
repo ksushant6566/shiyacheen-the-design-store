@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { setCurrentUser } from './redux/User/user.actions';
 
 // styles
 import './default.scss'
@@ -19,11 +22,10 @@ import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Recovery from './pages/Recovery';
 
-function App() {
 
-  const [currentUser, setCurrentUser] = useState();
+function App(props) {
+  const { currentUser, setCurrentUser } = props;
 
-  
   useEffect(() => {
     let authListner = auth.onAuthStateChanged( async userAuth => {
       if(userAuth) {
@@ -49,21 +51,21 @@ function App() {
       <Switch>
 
         <Route exact path='/' render={() => (
-          <HomepageLayout currentUser={currentUser}>
+          <HomepageLayout >
             <Homepage/>
           </HomepageLayout>
         )} />
 
         <Route path='/registration' 
         render={() => currentUser ? <Redirect to='/' /> : (
-          <MainLayout currentUser={currentUser}>
+          <MainLayout >
             <Registration />
           </MainLayout>
         )} />
 
         <Route path='/login'
           render={() => currentUser ? <Redirect to='/' /> : (
-            <MainLayout currentUser={currentUser}>
+            <MainLayout>
               <Login />
             </MainLayout>
           )} />
@@ -78,4 +80,12 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+});
+
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
