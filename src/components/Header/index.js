@@ -25,7 +25,7 @@ const Header = props => {
                     <ul>
                         <li>
                             <Link to='/dashboard'>
-                                My account
+                                My Account
                             </Link>
                         </li>
                         <li>
