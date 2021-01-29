@@ -7,6 +7,7 @@ import Button from '../forms/Button';
 
 // utils
 import { auth, handleUserProfile } from '../../firebase/utils';
+import AuthWrapper from '../AuthWrapper';
 
 const SignUp = props => {
     
@@ -70,21 +71,19 @@ const SignUp = props => {
     }
 
     return (
-        <div className='signup'>
-            <div className='wrap'>
-                <h2>
-                    Signup
-                </h2>
-                {
-                    state.err.length > 0 && (
-                        state.err.map((er, i) => {
-                            return (
-                                <h6 key={i}>{er}</h6>
-                            )
-                        })
+        <AuthWrapper
+            headline='signup'
+        >
+        {
+            state.err.length > 0 && (
+                state.err.map((er, i) => {
+                    return (
+                        <h6 key={i}>{er}</h6>
                     )
-                }
-                <form onSubmit={handleFormSubmit}>
+                })
+            )
+        }
+            <form onSubmit={handleFormSubmit}>
                     <FormInput
                         type="text"
                         name="displayName"
@@ -117,9 +116,8 @@ const SignUp = props => {
                     <Button type='submit'>
                         Register
                     </Button>
-                </form>
-            </div>
-        </div>
+                </form>    
+        </AuthWrapper>
     );
 }
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './styles.scss';
 
 import { auth, signInWithGoogle } from '../../firebase/utils';
@@ -6,6 +7,7 @@ import { auth, signInWithGoogle } from '../../firebase/utils';
 // components
 import Button from '../forms/Button';
 import FormInput from '../forms/FormInput';
+import AuthWrapper from '../AuthWrapper';
 
 const SignIn = props => {
 
@@ -39,46 +41,48 @@ const SignIn = props => {
 
     }
     return (
-        <div className='signin'>
-            <div className='wrap'>
-                <h2>
-                    Login
-                </h2>
+        <AuthWrapper 
+            headline="login"
+        >
+            <div className='formwrap'>
+                <form onSubmit={handleSubmit}>
 
-                <div className='formwrap'>
-                    <form onSubmit={handleSubmit}>
+                    <FormInput
+                        type='email'
+                        name='email'
+                        value={state.email}
+                        onChange={handleChange}
+                        placeholder='Email'
+                    />
 
-                        <FormInput
-                            type='email'
-                            name='email'
-                            value={state.email}
-                            onChange={handleChange}
-                            placeholder='Email'
-                        />
+                    <FormInput
+                        type='password'
+                        name='password'
+                        value={state.password}
+                        onChange={handleChange}
+                        placeholder='Password'
+                    />
 
-                        <FormInput
-                            type='password'
-                            name='password'
-                            value={state.password}
-                            onChange={handleChange}
-                            placeholder='Password'
-                        />
+                    <Button type='submit' >
+                        Login
+                    </Button>
 
-                        <Button type='submit' >
-                            Login
-                        </Button>
-
-                        <div className='socialSignIn'>
-                            <div className='row'>
-                                <Button onClick={signInWithGoogle}>
-                                    SignIn with Google
-                                </Button>
-                            </div>
+                    <div className='socialSignIn'>
+                        <div className='row'>
+                            <Button onClick={signInWithGoogle}>
+                                SignIn with Google
+                            </Button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+
+                    <div className='links'>
+                        <Link to='recovery' >
+                            Forgot password
+                        </Link>
+                    </div>
+                </form>
             </div>
-        </div>
+        </AuthWrapper>
     )
 }
         
