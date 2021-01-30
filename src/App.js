@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { setCurrentUser } from './redux/User/user.actions';
 
@@ -26,21 +26,21 @@ import Dashboard from './pages/Dashboard';
 
 
 function App(props) {
-  const { currentUser, setCurrentUser } = props;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let authListner = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot(snapshot => {
-          setCurrentUser({
+          dispatch(setCurrentUser({
             id: snapshot.id,
             ...snapshot.data(),
-          })
+          }))
         })
       }
       else {
-        setCurrentUser(null);
+        dispatch(setCurrentUser(null));
       }
     })
 
@@ -92,12 +92,4 @@ function App(props) {
   );
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
-});
-
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
