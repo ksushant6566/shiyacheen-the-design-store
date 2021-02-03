@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 // styles
@@ -11,17 +11,18 @@ import FormInput from '../forms/FormInput';
 import Button from '../forms/Button';
 
 // redux actions
-import { resetAllAuthForms, resetPassword } from "../../redux/User/user.actions";
+import { resetPasswordStart, resetUserState } from "../../redux/User/user.actions";
 
 const mapState = ({ user }) => ({
-    resetPasswordError: user.resetPasswordError,
-    resetPasswordSuccess: user.resetPasswordSuccess
+    resetPasswordSuccess: user.resetPasswordSuccess,
+    userErr: user.userErr,
 })
 
 const EmailPassword = props => {
-
     const dispatch = useDispatch();
-    const { resetPasswordError, resetPasswordSuccess } = useSelector(mapState);
+    const history = useHistory();
+
+    const { resetPasswordSuccess, userErr} = useSelector(mapState);
 
     const [state, setState] = useState({
         email: '',
@@ -30,24 +31,24 @@ const EmailPassword = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        dispatch(resetPassword({ email: state.email }))
+        dispatch(resetPasswordStart({ email: state.email }))
     }
     
     useEffect(() => {
         if(resetPasswordSuccess) {
-            dispatch(resetAllAuthForms)
-            props.history.push('/login')
+            dispatch(resetUserState())
+            history.push('/login')
         }
     }, [resetPasswordSuccess]);
 
     useEffect(() => {
-        if(Array.isArray(resetPasswordError) && resetPasswordError.length > 0 ) {
+        if(Array.isArray(userErr) && userErr.length > 0 ) {
             setState({
                 ...state,
-                errors: resetPasswordError
+                errors: userErr
             })
         }
-    }, [resetPasswordError])
+    }, [userErr])
 
     const handleChange = e => {
         setState({
@@ -85,4 +86,4 @@ const EmailPassword = props => {
     )
 }
 
-export default withRouter(EmailPassword);
+export default EmailPassword;

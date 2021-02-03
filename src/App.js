@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect,} from 'react';
+import { Route, Switch, } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import { setCurrentUser } from './redux/User/user.actions';
+import { checkUserSession } from './redux/User/user.actions';
 
 // styles
 import './default.scss'
 
 // utils
-import { auth, handleUserProfile } from './firebase/utils'
 
 // hoc
 import WithAuth from './hoc/withAuth';
@@ -25,28 +24,12 @@ import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
 
 
+
 function App(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let authListner = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await handleUserProfile(userAuth);
-        userRef.onSnapshot(snapshot => {
-          dispatch(setCurrentUser({
-            id: snapshot.id,
-            ...snapshot.data(),
-          }))
-        })
-      }
-      else {
-        dispatch(setCurrentUser(null));
-      }
-    })
-
-    return () => {
-      authListner()
-    };
+    dispatch(checkUserSession());
   }, []);
 
 

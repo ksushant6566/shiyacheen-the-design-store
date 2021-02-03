@@ -1,56 +1,36 @@
 import userTypes from './user.types';
 
 const INITIAL_STATE = {
-    currentUser : null,
-    signInSuccess: false,
-    signUpError: [],
-    signUpSuccess: false,
+    currentUser: null,
+    userErr: [],
     resetPasswordSuccess: false,
-    resetPasswordError: [],
 }
 
-const userReducer = (state=INITIAL_STATE, action) => {
-    switch(action.type) {
-        case userTypes.SET_CURENT_USER : 
+const userReducer = (state = INITIAL_STATE, action) => {
+    switch (action.type) {
+        case userTypes.SIGN_IN_SUCCESS:
             return {
                 ...state,
-                currentUser: action.payload
+                currentUser: action.payload,
+                userErr: [],
             }
-        case userTypes.SIGN_IN_SUCCESS :
+        case userTypes.USER_ERROR:
             return {
                 ...state,
-                signInSuccess: action.payload
+                userErr: action.payload
             }
-        case userTypes.SIGN_UP_ERROR :
+        case userTypes.RESET_PASSWORD_SUCCESS:
             return {
                 ...state,
-                signUpError: action.payload
+                resetPasswordSuccess: action.payload,
             }
-        case userTypes.SIGN_UP_SUCCESS :
+        case userTypes.RESET_USER_STATE:
+        case userTypes.SIGN_OUT_USER_SUCCESS:
             return {
                 ...state,
-                signUpSuccess: action.payload
+                ...INITIAL_STATE,
             }
-        case userTypes.RESET_PASSWORD_SUCCESS :
-            return {
-                ...state,
-                resetPasswordSuccess: action.payload
-            }
-        case userTypes.RESET_PASSWORD_ERROR :
-            return {
-                ...state,
-                resetPasswordError: action.payload
-            }
-        case userTypes.RESET_AUTH_FORMS :
-            return {
-                ...state,
-                signInSuccess: false,
-                signUpError: [],
-                signUpSuccess: false,
-                resetPasswordSuccess: false,
-                resetPasswordError: [],
-            }
-        default :
+        default:
             return state;
     }
 };
