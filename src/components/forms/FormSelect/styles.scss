@@ -1,0 +1,25 @@
+.formRow {
+    display: inline-block;
+    width: 100%;
+
+    label {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    select {
+        display: block;
+        width: 100%;
+        float: left;
+        font-size: 1.6rem;
+        line-height: 1;
+        font-weight: 400;
+        text-align: left;
+        padding: 1rem 0;
+        margin: 1rem auto;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+}
