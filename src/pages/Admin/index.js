@@ -111,7 +111,7 @@ const Admin = props => {
                             label="Price"
                             type="number"
                             min="0.00"
-                            max="1000.00"
+                            max="100000.00"
                             step="0.01"
                             value={productPrice}
                             handleChange={e => setProductPrice(e.target.value)}

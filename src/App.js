@@ -24,6 +24,7 @@ import AdminLayout from "./layouts/AdminLayout";
 
 // pages
 import Homepage from './pages/Homepage'
+import Search from './pages/Search';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Recovery from './pages/Recovery';
@@ -49,6 +50,12 @@ function App(props) {
             <Homepage />
           </HomepageLayout>
         )} />
+
+        <Route path="/search" render={() => (
+          <MainLayout>
+            <Search />
+          </MainLayout>
+        )}></Route>
 
         <Route path='/registration'
           render={() => (
