@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProductStart, deleteProductStart, fetchProductStart } from './../../redux/Products/products.actions';
-import { firestore } from "./../../firebase/utils";
+import { addProductStart, deleteProductStart, fetchProductsStart } from './../../redux/Products/products.actions';
+import CkEditor from 'ckeditor4-react';
+
+// components
 import Modal from './../../components/Modal';
 import FormInput from './../../components/forms/FormInput';
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
-import './styles.scss';
+import LoadMore from '../../components/LoadMore';
 
+import './styles.scss';
 
 const mapState = ({ products }) => ({
     products: products.products
@@ -22,6 +25,7 @@ const Admin = props => {
     const [productName, setProductName] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
     const [productPrice, setProductPrice] = useState(0);
+    const [productDesc, setProductDesc] = useState('');
 
     const toggleHide = () => setHideModal(!hideModal);
 
@@ -30,12 +34,12 @@ const Admin = props => {
         toggleHide
     }
 
+    const { data , queryDoc, isLastPage } = products;
+
     useEffect(() => {
         dispatch(
-            fetchProductStart()
-        );
-
-        
+            fetchProductsStart()
+        );        
     }, []);
 
     const resetForm = () => {
@@ -44,6 +48,7 @@ const Admin = props => {
         setProductName('');
         setProductThumbnail('');
         setProductPrice(0);
+        setProductDesc('');
     }
 
     const handleSubmit = e => {
@@ -53,11 +58,25 @@ const Admin = props => {
             productCategory,
             productName,
             productThumbnail,
-            productPrice
+            productPrice,
+            productDesc,
         }))
 
         resetForm();
     };
+
+    const handleLoadMore = () => {
+        dispatch(
+            fetchProductsStart({
+                startAfterDoc : queryDoc,
+                persistProducts : data
+            })
+        );
+    }
+
+    const configLoadMore = {
+        onLoadMoreEvt: handleLoadMore,
+    }
 
     return (
         <div className="admin">
@@ -87,7 +106,7 @@ const Admin = props => {
                                 name: 'Men'
                             },
                             {
-                                value: 'women',
+                                value: 'womens',
                                 name: 'Women'
                             }]}
                             handleChange={e => setProductCategory(e.target.value)}
@@ -111,11 +130,17 @@ const Admin = props => {
                             label="Price"
                             type="number"
                             min="0.00"
-                            max="1000.00"
+                            max="100000.00"
                             step="0.01"
                             value={productPrice}
                             handleChange={e => setProductPrice(e.target.value)}
                         />
+
+                        <CkEditor 
+                            onChange={e => setProductDesc(e.editor.getData())}
+                        />
+
+                        <br />
 
                         <Button type="submit">
                             Add product
@@ -126,7 +151,7 @@ const Admin = props => {
             </Modal>
 
             <div className="manageProducts">
-                <table border="0" cellPadding="0" cellSpacing="0">
+                <table border="0" cellPadding="10px" cellSpacing="0">
                     <tbody>
                         <tr>
                             <th>
@@ -139,7 +164,7 @@ const Admin = props => {
                             <td>
                                 <table className="results" border="0" cellPadding="10" cellSpacing="0">
                                     <tbody>
-                                    {products.map((product, index) => {
+                                    {Array.isArray(data) && data.length > 0 && data.map((product, index) => {
                                         const {
                                             productName,
                                             productThumbnail,
@@ -166,6 +191,23 @@ const Admin = props => {
                                                 </tr>
                                             )
                                         })}
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table border="0" cellPadding="0" cellSpacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td>{!isLastPage && (
+                                                <LoadMore {...configLoadMore} />
+                                                )}
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </td>

@@ -28,37 +28,53 @@ const Header = props => {
                     </Link>
                 </div>
 
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/">
+                                Home
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/search">
+                                Search
+                            </Link>
+                        </li>
+
+                    </ul>
+                </nav>
+
                 <div className='callToActions'>
-                { currentUser && (
-                    <ul>
-                        <li>
-                            <Link to='/dashboard'>
-                                My Account
+                    {currentUser && (
+                        <ul>
+                            <li>
+                                <Link to='/dashboard'>
+                                    My Account
                             </Link>
-                        </li>
-                        <li>
-                            <span onClick = {handleSignOut}>
-                                Logout
+                            </li>
+                            <li>
+                                <span onClick={handleSignOut}>
+                                    Logout
                             </span>
-                        </li>
-                    </ul>
-                ) }
-                
-                { !currentUser && (
-                    <ul>
-                        <li>
-                            <Link to='/registration'>
-                                Register
+                            </li>
+                        </ul>
+                    )}
+
+                    {!currentUser && (
+                        <ul>
+                            <li>
+                                <Link to='/registration'>
+                                    Register
                             </Link>
-                        </li>
-                        <li>
-                            <Link to='/login'>
-                                Login
+                            </li>
+                            <li>
+                                <Link to='/login'>
+                                    Login
                             </Link>
-                        </li>
-                    </ul>
+                            </li>
+                        </ul>
                     )
-                }
+                    }
                 </div>
             </div>
         </header>
@@ -66,7 +82,7 @@ const Header = props => {
 };
 
 Header.defaultProps = {
-    currentUser : null,
+    currentUser: null,
 }
 
 export default Header; 

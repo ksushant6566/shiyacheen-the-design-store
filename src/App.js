@@ -24,11 +24,13 @@ import AdminLayout from "./layouts/AdminLayout";
 
 // pages
 import Homepage from './pages/Homepage'
+import Search from './pages/Search';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import ProductDetails from './pages/ProductDetails';
 
 
 
@@ -49,6 +51,24 @@ function App(props) {
             <Homepage />
           </HomepageLayout>
         )} />
+
+        <Route exact path="/search" render={() => (
+          <MainLayout>
+            <Search />
+          </MainLayout>
+        )}></Route>
+
+        <Route path="/search/:filterType" render={() => (
+          <MainLayout>
+            <Search />
+          </MainLayout>
+        )}></Route>
+
+        <Route path="/product/:productID" render={() => (
+          <MainLayout>
+            <ProductDetails />
+          </MainLayout>
+        )}></Route>
 
         <Route path='/registration'
           render={() => (
