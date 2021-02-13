@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProductStart, deleteProductStart, fetchProductStart } from './../../redux/Products/products.actions';
-import { firestore } from "./../../firebase/utils";
+import { addProductStart, deleteProductStart, fetchProductsStart } from './../../redux/Products/products.actions';
+import CkEditor from 'ckeditor4-react';
+
+// components
 import Modal from './../../components/Modal';
 import FormInput from './../../components/forms/FormInput';
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
-import './styles.scss';
 import LoadMore from '../../components/LoadMore';
 
+import './styles.scss';
 
 const mapState = ({ products }) => ({
     products: products.products
@@ -23,6 +25,7 @@ const Admin = props => {
     const [productName, setProductName] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
     const [productPrice, setProductPrice] = useState(0);
+    const [productDesc, setProductDesc] = useState('');
 
     const toggleHide = () => setHideModal(!hideModal);
 
@@ -35,7 +38,7 @@ const Admin = props => {
 
     useEffect(() => {
         dispatch(
-            fetchProductStart()
+            fetchProductsStart()
         );        
     }, []);
 
@@ -45,6 +48,7 @@ const Admin = props => {
         setProductName('');
         setProductThumbnail('');
         setProductPrice(0);
+        setProductDesc('');
     }
 
     const handleSubmit = e => {
@@ -54,7 +58,8 @@ const Admin = props => {
             productCategory,
             productName,
             productThumbnail,
-            productPrice
+            productPrice,
+            productDesc,
         }))
 
         resetForm();
@@ -62,7 +67,7 @@ const Admin = props => {
 
     const handleLoadMore = () => {
         dispatch(
-            fetchProductStart({
+            fetchProductsStart({
                 startAfterDoc : queryDoc,
                 persistProducts : data
             })
@@ -101,7 +106,7 @@ const Admin = props => {
                                 name: 'Men'
                             },
                             {
-                                value: 'women',
+                                value: 'womens',
                                 name: 'Women'
                             }]}
                             handleChange={e => setProductCategory(e.target.value)}
@@ -130,6 +135,12 @@ const Admin = props => {
                             value={productPrice}
                             handleChange={e => setProductPrice(e.target.value)}
                         />
+
+                        <CkEditor 
+                            onChange={e => setProductDesc(e.editor.getData())}
+                        />
+
+                        <br />
 
                         <Button type="submit">
                             Add product

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { fetchProductStart } from "../../redux/Products/products.actions";
+import { fetchProductsStart } from "../../redux/Products/products.actions";
 
 // components
 import Product from './Product';
@@ -24,7 +24,7 @@ const ProductResults = props => {
 
     useEffect(() => {
         dispatch(
-            fetchProductStart({ filterType })
+            fetchProductsStart({ filterType })
         )
     }, [filterType]);
 
@@ -64,7 +64,7 @@ const ProductResults = props => {
 
     const handleLoadMore = () => {
         dispatch(
-            fetchProductStart({ 
+            fetchProductsStart({ 
                 filterType, 
                 startAfterDoc: queryDoc,
                 persistProducts: data
@@ -91,10 +91,11 @@ const ProductResults = props => {
                 {data.map( (product, index) => {
                     const { productThumbnail, productName, productPrice } = product;
 
+                    if(!productThumbnail || !productName || 
+                        typeof productPrice === 'undefined' ) return null;
+
                     const configProduct = {
-                        productThumbnail, 
-                        productName, 
-                        productPrice
+                        ...product
                     }
 
                     return (    
