@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signOutUserStart } from '../../redux/User/user.actions';
 
-import { selectcartItemsCount } from "../../redux/Cart/cart.selectors";
+import { selectCartItemsCount } from "../../redux/Cart/cart.selectors";
 
 import './styles.scss';
 
@@ -12,7 +12,7 @@ import Logo from '../../assets/imgs/Logo.png';
 
 const mapState = (state) => ({
     currentUser: state.user.currentUser,
-    totalNumCartItems: selectcartItemsCount(state)
+    totalNumCartItems: selectCartItemsCount(state)
 });
 
 const Header = props => {
