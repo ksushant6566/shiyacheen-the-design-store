@@ -7,7 +7,6 @@ export const handleAddproduct = product => {
             .doc()
             .set(product)
             .then(() => {
-                console.log("ho gaya")
                 resolve();
             })
             .catch(err => {
@@ -76,8 +75,11 @@ export const handleFetchProduct = productID => {
             .get()
             .then(snapshot => {
                 if(snapshot.exists) {
-                    resolve(
-                        snapshot.data()
+                    resolve({
+                        ...snapshot.data(),
+                        documentID: snapshot.id
+
+                    }
                     );
                 }
             })

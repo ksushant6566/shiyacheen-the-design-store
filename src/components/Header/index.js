@@ -3,17 +3,21 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signOutUserStart } from '../../redux/User/user.actions';
 
+import { selectcartItemsCount } from "../../redux/Cart/cart.selectors";
+
 import './styles.scss';
 
 import Logo from '../../assets/imgs/Logo.png';
 
+
+const mapState = (state) => ({
+    currentUser: state.user.currentUser,
+    totalNumCartItems: selectcartItemsCount(state)
+});
+
 const Header = props => {
     const dispatch = useDispatch();
-
-    const mapState = ({ user }) => ({
-        currentUser: user.currentUser
-    });
-    const { currentUser } = useSelector(mapState);
+    const { currentUser, totalNumCartItems } = useSelector(mapState);
 
     const handleSignOut = () => {
         dispatch(signOutUserStart())
@@ -47,6 +51,11 @@ const Header = props => {
                 <div className='callToActions'>
                     {currentUser && (
                         <ul>
+                            <li>
+                                <Link to="/cart">
+                                    Cart ({totalNumCartItems})
+                                </Link>
+                            </li>
                             <li>
                                 <Link to='/dashboard'>
                                     My Account
