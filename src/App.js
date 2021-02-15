@@ -31,6 +31,7 @@ import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import ProductDetails from './pages/ProductDetails';
+import Cart from "./pages/Cart";
 
 
 
@@ -69,6 +70,12 @@ function App(props) {
             <ProductDetails />
           </MainLayout>
         )}></Route>
+
+        <Route path="/cart" render={() => (
+          <MainLayout>
+            <Cart />
+          </MainLayout>
+        )} />
 
         <Route path='/registration'
           render={() => (
