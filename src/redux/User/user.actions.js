@@ -1,6 +1,4 @@
 import userTypes from './user.types';
-import { auth } from './../../firebase/utils';
-
 
 export const emailSignInStart = userCredentials => ({
     type: userTypes.EMAIL_SIGN_IN_START,

@@ -16,7 +16,7 @@ const mapState = ({ products }) => ({
     product: products.product
 })
 
-const ProductCard = ({}) => {
+const ProductCard = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { productID } = useParams();
@@ -40,7 +40,7 @@ const ProductCard = ({}) => {
                 setProduct({})
             )
         }
-    }, []);
+    }, [dispatch, productID]);
 
 
     const configAddToCartBtn = {

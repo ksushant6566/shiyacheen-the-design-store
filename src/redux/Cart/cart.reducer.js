@@ -22,7 +22,7 @@ const cartReducer = (state=INITIAL_STATE, action) => {
                 prevCartItems: state.cartItems,
                 cartItemToReduce: action.payload
             })
-        }
+        };
         
         case cartTypes.REMOVE_CART_ITEM: 
         return {
@@ -32,6 +32,13 @@ const cartReducer = (state=INITIAL_STATE, action) => {
                 cartItemToRemove: action.payload
             })
         };
+
+        case cartTypes.CLEAR_CART: {
+            return {
+                ...state,
+                ...INITIAL_STATE,
+            }
+        }
         default:
             return state;
     }
