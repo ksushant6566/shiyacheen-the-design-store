@@ -6,6 +6,7 @@ import { CountryDropdown } from 'react-country-region-selector';
 // components
 import FormInput from '../forms/FormInput';
 import Button from '../forms/Button';
+import MessageBox from '../MessageBox';
 
 import { selectCartTotal, selectCartItemsCount } from '../../redux/Cart/cart.selectors';
 import { createStructuredSelector } from "reselect";
@@ -42,6 +43,8 @@ const PaymentDetails = props => {
     const [shippingAddress, setShippingAddress] = useState({ ...initialAddressState });
     const [recipientName, setRecipientName] = useState("");
     const [nameOnCard, setNameOnCard] = useState("");
+    const [paymentErr, setPaymentErr] = useState("");
+    const [showMsg, setShowMsg] = useState(false);
 
     useEffect(() => {
         if(itemsCount < 1) {
@@ -81,7 +84,12 @@ const PaymentDetails = props => {
                         ...billingAddress
                     }
                 }
-            }).then( ({ paymentMethod }) => {
+            }).then( ({ paymentMethod, error }) => {
+                if(error) {
+                    setPaymentErr(error.message);
+                    setShowMsg(true);
+                    return;
+                }
 
                 stripe.confirmCardPayment(clientSecret, {
                     payment_method: paymentMethod.id
@@ -89,9 +97,19 @@ const PaymentDetails = props => {
                     dispatch(
                         clearCart()
                     )
+                })
+                .catch(err => {
+                    setPaymentErr(err.message);
+                    setShowMsg(true);
                 });
-
             } )
+            .catch(err => {
+                setPaymentErr(err.message);
+                setShowMsg(true);
+            });
+        }).catch(err => {
+            setPaymentErr(err.message);
+            setShowMsg(true);
         });
 
     }
@@ -120,7 +138,7 @@ const PaymentDetails = props => {
     }
 
     return (
-        <div className="paymentDetails">
+        <div className="paymentDetails" onClick={() => setShowMsg(false)}>
             <form onSubmit={handleSubmit}>
 
                 <div className="group">
@@ -270,6 +288,7 @@ const PaymentDetails = props => {
                 <Button type="submit">
                     Pay Now
                 </Button>
+                <MessageBox msg={paymentErr} show={showMsg} />
             </form>
         </div>
     );
