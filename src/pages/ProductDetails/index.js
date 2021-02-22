@@ -3,7 +3,7 @@ import React from 'react';
 // components
 import ProductCard from '../../components/productCard';
 
-const ProductDetails = ({  }) => {
+const ProductDetails = () => {
     return (
         <div className="productDetails">
             <ProductCard />

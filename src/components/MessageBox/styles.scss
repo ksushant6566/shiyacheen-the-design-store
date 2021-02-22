@@ -1,0 +1,18 @@
+.msgBox {
+    height: 15rem;
+    width: 30rem;
+    padding: 1.5rem;
+    background-color: white;
+    border: 1px solid black;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+    p {
+        font-size: 1.8rem;
+        color: red;
+    }
+}

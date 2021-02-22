@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from "react-redux";
-import { selectCartItems , selectCartTotal} from '../../redux/Cart/cart.selectors';
+import { selectCartItems, selectCartTotal } from '../../redux/Cart/cart.selectors';
 import { createStructuredSelector } from "reselect";
 import { useHistory } from "react-router-dom";
 import './styles.scss';
@@ -29,73 +29,81 @@ const Checkout = props => {
                     <table border="0" cellPadding="0" cellSpacing="0">
                         <tbody>
                             <tr>
-                                <table className="checkoutHeader" border="0" cellPadding="10" cellSpacing="0">
-                                    <tbody>
-                                        <tr>
-                                            <th>
-                                                Product
+                                <td>
+                                    <table className="checkoutHeader" border="0" cellPadding="10" cellSpacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <th>
+                                                    Product
                                         </th>
-                                            <th>
-                                                Description
+                                                <th>
+                                                    Description
                                         </th>
-                                            <th>
-                                                Quantity
+                                                <th>
+                                                    Quantity
                                         </th>
-                                            <th>
-                                                Price
+                                                <th>
+                                                    Price
                                         </th>
-                                            <th>
-                                                Remove
+                                                <th>
+                                                    Remove
                                         </th>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
                             </tr>
                             <tr>
-                                <table border="0" cellPadding="0" cellSpacing="0">
-                                    <tbody>
-                                        {cartItems.map((item, index) => {
-                                            return (
-                                                <tr key={index}>
-                                                    <td>
-                                                        <Item {...item} />
-                                                    </td>
-                                                </tr>
-                                            )
-                                        })}
-                                    </tbody>
-                                </table>
-                            </tr>
-                            <tr>
-                                <table align="left" border="0" cellPadding="10" cellSpacing="0">
-                                    <tbody>
-                                        <tr align="left">
-                                            <td>
-                                                <h3>
-                                                    Total: ₹{total}
-                                                </h3>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <table border="0" cellPadding="10" cellSpacing="0">
-                                                <tbody>
-                                                    <tr>
+                                <td>
+                                    <table border="0" cellPadding="0" cellSpacing="0">
+                                        <tbody>
+                                            {cartItems.map((item, index) => {
+                                                return (
+                                                    <tr key={index}>
                                                         <td>
-                                                            <Button onClick={() => history.goBack()}>
-                                                                Continue shopping
-                                                            </Button>
-                                                        </td>
-                                                        <td>
-                                                            <Button>
-                                                                Checkout
-                                                            </Button>
+                                                            <Item {...item} />
                                                         </td>
                                                     </tr>
-                                                </tbody>
-                                            </table>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table align="left" border="0" cellPadding="10" cellSpacing="0">
+                                        <tbody>
+                                            <tr align="left">
+                                                <td>
+                                                    <h3>
+                                                        Total: ₹{total}
+                                                    </h3>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table border="0" cellPadding="10" cellSpacing="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <Button onClick={() => history.goBack()}>
+                                                                        Continue shopping
+                                                            </Button>
+                                                                </td>
+                                                                <td>
+                                                                    <Button onClick={() => history.push('/payment')}>
+                                                                        Checkout
+                                                            </Button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
