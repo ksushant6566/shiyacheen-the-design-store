@@ -8,6 +8,7 @@ import { selectCartItemsCount } from "../../redux/Cart/cart.selectors";
 import './styles.scss';
 
 import Logo from '../../assets/imgs/Logo.png';
+import ShoppingCartSharpIcon from '@material-ui/icons/ShoppingCartSharp';
 
 
 const mapState = (state) => ({
@@ -35,13 +36,8 @@ const Header = props => {
                 <nav>
                     <ul>
                         <li>
-                            <Link to="/">
-                                Home
-                            </Link>
-                        </li>
-                        <li>
                             <Link to="/search">
-                                Search
+                                Products
                             </Link>
                         </li>
 

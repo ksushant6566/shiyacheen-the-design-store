@@ -1,14 +1,15 @@
 .msgBox {
-    height: 15rem;
-    width: 30rem;
-    padding: 1.5rem;
+    height: 20rem;
+    width: 40rem;
+    padding: 5rem 1.5rem;
     background-color: white;
-    border: 1px solid black;
     text-align: center;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border-radius: 13px;
+    box-shadow: 1px 1px 7px grey;
 
 
     p {

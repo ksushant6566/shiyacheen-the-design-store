@@ -10,28 +10,14 @@
         text-align: center;
     }
 
-    .checkoutHeader {
-        border-bottom: 1px solid black;
-    }
+    // .checkoutHeader {
+    //     border-bottom: 1px solid black;
+    // }
 
-    .cart {
-        max-width: 100.0rem;
-        margin: 0 auto;
-
-        table {
-            width: 100%;
-        }
-    }
-
-    .checkoutHeader,
+    
     .cart {
         width: 100%;
         text-align: left;
-
-        th,
-        td {
-            width: 22%;
-        }
     }
 
     .cartItem {
@@ -44,10 +30,12 @@
     .cartBtns {
         display: block;
         width: 100%;
+        float: left;
     }
 
     .cartBtn {
         cursor: pointer;
+        padding: 1rem;
     }
 
 }

@@ -1,8 +1,22 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
+import {
+    TableContainer,
+    Table,
+    TableHead,
+    TableBody,
+    TableRow,
+    TableCell
+} from "@material-ui/core";
 
 // actions
 import { removeCartItem, addProduct, reduceCartItem } from '../../../redux/Cart/cart.actions';
+
+
+const styles = {
+    fontSize: '16px',
+    width: '10%',
+}
 
 const Item = product => {
     const dispatch = useDispatch();
@@ -40,37 +54,34 @@ const Item = product => {
     }
 
     return (
-        <table className="cartItem" border="0" cellSpacing="0" cellPadding="10" >
-            <tbody>
-                <tr>
-                    <td>
-                        <img src={productThumbnail} alt={productName} />
-                    </td>
-                    <td>
-                        {productName}
-                    </td>
-                    <td>
-                        <span className="cartBtn" onClick={() => handleReduceCartItem(documentID)}>
-                            {` < `}
-                        </span>
-                        <span>
-                            {quantity}
-                        </span>
-                        <span className="cartBtn" onClick={() => handleAddProduct(documentID)}>
-                            {` > `}
-                        </span>
-                    </td>
-                    <td>
-                        ₹{productPrice}
-                    </td>
-                    <td align="center">
-                        <span className="cartBtn" onClick={() => handleRemoveCartItem(documentID)}>
-                            X
-                        </span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <TableRow className="cartItem">
+            <TableCell style={styles}>
+                <img src={productThumbnail} alt={productName} />
+            </TableCell>
+            <TableCell style={styles}>
+                {productName}
+            </TableCell>
+            <TableCell style={styles}>
+                <span className="cartBtn" onClick={() => handleReduceCartItem(documentID)}>
+                    {` < `}
+                </span>
+                <span>
+                    {quantity}
+                </span>
+                <span className="cartBtn" onClick={() => handleAddProduct(documentID)}>
+                    {` > `}
+                </span>
+            </TableCell>
+            <TableCell style={styles}>
+                ₹{productPrice}
+            </TableCell>
+            <TableCell style={styles}>
+                <span className="cartBtn" onClick={() => handleRemoveCartItem(documentID)}>
+                    X
+                </span>
+            </TableCell>
+        </TableRow>
+
     );
 };
 

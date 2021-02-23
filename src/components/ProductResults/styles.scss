@@ -7,7 +7,7 @@
     .products {
         display: flex;
         flex-wrap: wrap;
-        margin: 3rem -10px 0;
+        margin: 0 -2rem;
     }
 
     .productCategory {
@@ -16,9 +16,11 @@
 }
 
 .product {
-    width: 33.333333%;
-    margin: 0 auto 4rem;
-    padding: 0 10px;
+    width: calc(33.333333% - 4rem);
+    margin: 2rem 2rem;
+    padding: 1rem 1rem;
+    background: rgba(211, 211, 211, 0.25);
+    border-radius: 13px;
 
     .thumb {
         display: block;
@@ -28,7 +30,14 @@
             display: block;
             width: 100%;
             margin: 0;
-            height: 25rem;
+            border-radius: 13px;
+            box-shadow: 2px 2px 5px grey;
+            transition: all 0.1s ease-in;
+
+            &:hover {
+                box-shadow: 2px 8px 8px grey;
+                transform: translate(0, -8px);
+            }
         }
     }
 
@@ -56,13 +65,13 @@
                 }
 
                 .name {
-                    font-size: 2.2rem;
+                    font-size: 1.8rem;
                     line-height: 1.2;
                     font-weight: 400;
                 }
 
                 .price {
-                    font-size: 1.8rem;
+                    font-size: 1.6rem;
                     line-height: 1;
                     font-weight: 400;   
                 }

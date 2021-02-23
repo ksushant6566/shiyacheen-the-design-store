@@ -79,9 +79,9 @@ const ProductResults = props => {
     return (
         <div className="productResults">
 
-            <h1>
+            <h2>
                 Browse Products
-            </h1>
+            </h2>
 
             <div className="productCategory">
                 <FormSelect {...congfigFilter} />
