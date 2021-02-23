@@ -32,6 +32,8 @@ import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import ProductDetails from './pages/ProductDetails';
 import Cart from "./pages/Cart";
+import Payment from './pages/Payment';
+import Order from './pages/Order';
 
 
 
@@ -72,9 +74,19 @@ function App(props) {
         )}></Route>
 
         <Route path="/cart" render={() => (
-          <MainLayout>
-            <Cart />
-          </MainLayout>
+          <WithAuth>
+            <MainLayout>
+              <Cart />
+            </MainLayout>
+          </WithAuth>
+        )} />
+
+        <Route path="/payment" render={() => (
+          <WithAuth>
+            <MainLayout>
+              <Payment />
+            </MainLayout>
+          </WithAuth>
         )} />
 
         <Route path='/registration'
@@ -101,6 +113,14 @@ function App(props) {
           <WithAuth>
             <DashBoardLayout>
               <Dashboard />
+            </DashBoardLayout>
+          </WithAuth>
+        )} />
+
+        <Route path='/orders/:orderID' render={() => (
+          <WithAuth>
+            <DashBoardLayout>
+              <Order />
             </DashBoardLayout>
           </WithAuth>
         )} />
