@@ -51,11 +51,14 @@ const ProductResults = props => {
             name: 'Show all',
             value: ''
         }, {
-            name: 'Mens',
-            value: 'mens',
+            name: 'Royal Art',
+            value: 'royal-art',
         }, {
-            name: 'Womens',
-            value: 'womens'
+            name: 'Alternate Reality',
+            value: 'alternate-reality'
+        },{
+            name: 'Originals',
+            value: 'originals'
         }],
 
         handleChange: handleFilter,

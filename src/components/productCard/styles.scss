@@ -1,37 +1,118 @@
 .productCard {
-    max-width: 75rem;
-    margin: 0 auto 10rem;
+    max-width: 1450px;
+    margin: 2.5rem auto 10rem;
+    display: flex;
+    flex-wrap: wrap;
 
     .hero {
-        display: block;
-        width: 100%;
-        margin: 2rem auto;
+        width: 50%;
+        padding: 4rem;
+        display: flex;
 
         img {
             display: block;
             width: 100%;
             margin: 0;
         }
-    }
 
-    .productDetails {
-        ul, ul li {
-            padding: 0;
-            margin: 0;
-        }
+        .imgPreviews {
+            width: 15%;
+            margin-right: 4rem;
 
-        ul li {
-            list-style-type: none;
-            margin: 0 auto 1rem;
-
-            h1 {
-                margin: 0;
+            .imgPreview {
+                width: 100%;
+                border: 1px solid rgb(161, 161, 161);
+                margin: 2rem 0;
             }
         }
     }
 
-    .addToCart {
-        max-width: 25rem;
-        margin: 2rem 0 4rem;
+    .subdetails {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        padding: 4rem;
+
+        div {
+            margin: 1rem 0;
+
+            h1 {
+                margin: 0;
+            }
+            p {
+                color: grayscale($color: #858585);
+                text-transform: capitalize;
+                margin: 0;
+            }
+        }
+
+        .productPrice {
+            font-size: 2.2rem;
+        }
+
+        .orderCustom {
+            
+            .sizeOptions {
+                width: 33rem;
+                height: 5rem;
+                font-size: 2rem;
+
+                .sizeOption {
+                    display: inline-block;
+                    width: 5rem;
+                    height: 5rem;
+                    margin-right: 2rem;
+                    padding: 1.1rem;
+                    border: rgb(41, 41, 41) 1px solid;
+                    border-radius: 4px;
+                }
+            }
+
+            .addToCart {
+                max-width: 25rem;
+                margin: 2rem 0 0rem;
+            }
+        }
+
+        
+    }
+
+    .productDetails {
+        display: block;
+        width: 100%;
+        margin: 4rem 0 0;
+        padding: 4rem;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    .productCard {
+        flex-direction: column;
+
+        .hero {
+            width: 100%;
+            flex-direction: column-reverse;
+            padding: 1rem;
+
+            .imgPreviews {
+                width: 100%;
+                display: flex;
+
+                .imgPreview {
+                    width: 20%;
+                    margin: 2rem 1rem 2rem;
+                }
+            }
+        }
+
+        .subdetails {
+            width: 100%;
+            padding: 1rem;
+        }
+
+        .productDetails {
+            padding: 1rem;
+        }
+
     }
 }

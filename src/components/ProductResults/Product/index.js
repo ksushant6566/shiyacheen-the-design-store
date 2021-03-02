@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import ImgSlider from '../ImgSlider';
 
 // components
 import Button from '../../forms/Button';
@@ -8,19 +9,23 @@ import Button from '../../forms/Button';
 // actions
 import { addProduct } from '../../../redux/Cart/cart.actions';
 
-const Product = ( product ) => {
+const Product = (product) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const thumbRef = useRef(null);
+
     const {
         documentID,
-        productThumbnail, 
-        productName, 
+        productThumbnail,
+        productName,
         productPrice
     } = product;
 
-    if(!documentID || !productThumbnail || !productName || 
-        typeof productPrice === 'undefined' ) return null;
+    const [showSlider, setShowSlider] = useState(false);
+
+    if (!documentID || !productThumbnail || !productName ||
+        typeof productPrice === 'undefined') return null;
 
 
     const addToCartButton = {
@@ -28,22 +33,37 @@ const Product = ( product ) => {
     }
 
     const handleAddToCart = product => {
-        if(!product) return;
+        if (!product) return;
 
         dispatch(
             addProduct(product)
         )
         history.push('/cart')
     };
-    
+
+    const width = thumbRef.current && thumbRef.current.offsetWidth ;
+    const height = thumbRef.current && thumbRef.current.offsetHeight ;
+
     return (
         <div className="product">
-            <div className="thumb">
+            <div 
+            className="thumb" 
+            ref={thumbRef}
+            onMouseEnter={() => setShowSlider(true)} 
+            onMouseLeave={() => setShowSlider(false)}>
                 <Link to={`/product/${documentID}`}>
-                    <img src={productThumbnail} alt={productName} />
+                    {showSlider ? 
+                        <ImgSlider
+                            imgs={productThumbnail}
+                            height={height}
+                            width={width}
+                            speed={1500}
+                        /> : 
+                        <img src={productThumbnail[0]} alt={productName} />
+                    }
                 </Link>
             </div>
-            
+
             <div className="details">
                 <ul>
                     <li>
@@ -66,8 +86,7 @@ const Product = ( product ) => {
                         </div>
                     </li>
                 </ul>
-            </div>
-
+            </div>            
         </div>
     );
 };
