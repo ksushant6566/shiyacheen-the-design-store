@@ -1,0 +1,17 @@
+{
+  "name": "shiyacheen-payment-server",
+  "version": "1.0.0",
+  "description": "payment server for shiyacheen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "sushant",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "stripe": "^8.136.0"
+  }
+}
