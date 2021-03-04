@@ -8,5 +8,6 @@ export const checkUserIsAdmin = currentUser => {
 }
 
 export const apiInstance = axios.create({
-    baseURL: 'https://shiyacheen-payment-server.herokuapp.com/'
+    // baseURL: 'https://shiyacheen-payment-server.herokuapp.com/'
+    baseURL: 'https://shiyacheen-designs.herokuapp.com/'
 });
