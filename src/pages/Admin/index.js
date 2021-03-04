@@ -21,7 +21,7 @@ const Admin = props => {
     const { products } = useSelector(mapState)
 
     const [hideModal, setHideModal] = useState(true);
-    const [productCategory, setProductCategory] = useState('mens');
+    const [productCategory, setProductCategory] = useState('originals');
     const [productName, setProductName] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
     const [productPrice, setProductPrice] = useState(0);
@@ -44,9 +44,9 @@ const Admin = props => {
 
     const resetForm = () => {
         setHideModal(true);
-        setProductCategory('mens');
+        setProductCategory('originals');
         setProductName('');
-        setProductThumbnail('');
+        setProductThumbnail(['']);
         setProductPrice(0);
         setProductDesc('');
     }
@@ -57,7 +57,7 @@ const Admin = props => {
         dispatch(addProductStart({
             productCategory,
             productName,
-            productThumbnail,
+            productThumbnail: productThumbnail.split(","),
             productPrice,
             productDesc,
         }))
@@ -102,12 +102,14 @@ const Admin = props => {
                         <FormSelect
                             label="Category"
                             options={[{
-                                value: 'mens',
-                                name: 'Men'
-                            },
-                            {
-                                value: 'womens',
-                                name: 'Women'
+                                name: 'Royal Art',
+                                value: 'royal-art',
+                            }, {
+                                name: 'Alternate Reality',
+                                value: 'alternate-reality'
+                            },{
+                                name: 'Originals',
+                                value: 'originals'
                             }]}
                             handleChange={e => setProductCategory(e.target.value)}
                         />
@@ -120,7 +122,7 @@ const Admin = props => {
                         />
 
                         <FormInput 
-                            label="Main image URL"
+                            label="Image URLs"
                             type="url"
                             value={productThumbnail}
                             handleChange={e => setProductThumbnail(e.target.value)}
@@ -175,7 +177,7 @@ const Admin = props => {
                                         return (
                                                 <tr key={index}>
                                                     <td>
-                                                        <img className="thumb" src={productThumbnail} alt={productName} />
+                                                        <img className="thumb" src={productThumbnail[0]} alt={productName} />
                                                     </td>
                                                     <td>
                                                         {productName}

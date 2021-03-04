@@ -56,7 +56,7 @@ const Item = product => {
     return (
         <TableRow className="cartItem">
             <TableCell style={styles}>
-                <img src={productThumbnail} alt={productName} />
+                <img src={productThumbnail[0]} alt={productName} />
             </TableCell>
             <TableCell style={styles}>
                 {productName}

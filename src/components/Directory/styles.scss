@@ -1,35 +1,82 @@
 .directory {
-    height: 100%;
+    height: 40rem;
+    width: 100%;
+    padding: 4rem;
 
-    .item {
-        width: 50%;
+    .wrap {
         height: 100%;
-        float: left;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        position: relative;
+        width: 100%;
+        box-shadow: 0px 0px 7px grey;
+        border-radius: 23px;
+        background-color: white;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
 
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;left: 0;
-            background-color: rgba(0, 0, 0, 0.3);
-            width: 100%;
+        img {
+            padding: 1rem;
+            width: 40%;
             height: 100%;
-            z-index: 1;
         }
 
-        a {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            font-size: 2rem;
-            text-transform: uppercase;
-            background: white;
-            padding: 8px 10px;
-            border: 1px solid black;
+        div {
+            width: 60%;
+            padding: 4rem;
+            padding-left: 5%;
+
+            h1 {
+                font-size: 2.8rem;
+                color: rgb(68, 68, 68);
+                margin-bottom: 5rem;
+            }
+
+            h3 {
+                font-size: 2rem;
+                color: rgb(87, 87, 87);
+                margin-bottom: 3rem;
+            }
+
+            p {
+                font-size: 1.6rem;
+                color: rgb(173, 173, 173);
+            }
+        }
+    }
+
+}
+
+@media only screen and (max-width: 800px) {
+    .directory {
+        margin-top: 2rem;
+        padding: 2rem 4rem;
+
+        .wrap {
+            flex-direction: column !important;
+    
+            img {
+                width: 100%;
+                height: 60%;                
+            }
+    
+            div {
+                width: 100%;
+                height: 40%;
+
+                padding: 1rem 2rem;
+
+                h1 {
+                    margin: 0;
+                    font-size: 1.8rem;
+                }
+                h3 {
+                    margin: 1rem 0;
+                    font-size: 1.4rem;
+                }
+                p {
+                    margin: 0;
+                    font-size: 1.2rem;
+                }
+            }
         }
     }
 }

@@ -63,8 +63,11 @@
                     height: 5rem;
                     margin-right: 2rem;
                     padding: 1.1rem;
-                    border: rgb(41, 41, 41) 1px solid;
+                    border: #858585 solid 1px;
                     border-radius: 4px;
+                }
+                .sizeOption.selected {
+                    border: rgb(41, 41, 41) 2px solid;
                 }
             }
 
@@ -92,7 +95,7 @@
         .hero {
             width: 100%;
             flex-direction: column-reverse;
-            padding: 1rem;
+            padding: 0rem;
 
             .imgPreviews {
                 width: 100%;

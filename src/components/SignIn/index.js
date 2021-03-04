@@ -16,7 +16,7 @@ const mapState = ({ user }) => ({
     currentUser: user.currentUser
 })
 
-const SignIn = props => {
+const SignIn = () => {
 
     const { currentUser } = useSelector(mapState);
     const dispatch = useDispatch();
@@ -26,6 +26,7 @@ const SignIn = props => {
         email: '',
         password: '',
     })
+    const [processing, setProcessing] = useState(false);
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -41,12 +42,14 @@ const SignIn = props => {
                 email: '',
                 password: '',
             })
+            setProcessing(false)
             history.push('/');
         }
     }, [currentUser])
 
     const handleSubmit = async e => {
         e.preventDefault();
+        setProcessing(true);
         dispatch(emailSignInStart({ email: state.email, password: state.password }));
     }
 
@@ -77,13 +80,13 @@ const SignIn = props => {
                         placeholder='Password'
                     />
 
-                    <Button type='submit' >
+                    <Button type='submit' processing={processing} >
                         Login
                     </Button>
 
                     <div className='socialSignIn'>
                         <div className='row'>
-                            <Button onClick={handleGoogleSignIn}>
+                            <Button onClick={handleGoogleSignIn} >
                                 SignIn with Google
                             </Button>
                         </div>

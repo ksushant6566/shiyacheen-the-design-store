@@ -32,6 +32,7 @@ const SignUp = props => {
         confirmPassword: '',
         err: [''],
     });
+    const [processing, setProcessing] = useState(false);
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -51,6 +52,7 @@ const SignUp = props => {
             confirmPassword: '',
             err: [''],
         })
+        setProcessing(false);
         history.push('/');
     }
     }, [currentUser]);
@@ -61,11 +63,13 @@ const SignUp = props => {
                 ...state,
                 err: userErr,
             })
+            setProcessing(false);
         }
     }, [userErr])
 
     const handleFormSubmit = e => {
         e.preventDefault();
+        setProcessing(true);
         dispatch(signUpUserStart(state))
     }
 
@@ -112,7 +116,7 @@ const SignUp = props => {
                     onChange={handleChange}
                 />
 
-                <Button type='submit'>
+                <Button type='submit' processing={processing}>
                     Register
                     </Button>
             </form>

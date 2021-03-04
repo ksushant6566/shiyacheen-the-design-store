@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { fetchProductsStart } from "../../redux/Products/products.actions";
+import { fetchProductsStart, setProducts } from "../../redux/Products/products.actions";
 
 // components
 import Product from './Product';
@@ -9,6 +9,9 @@ import FormSelect from '../forms/FormSelect';
 import LoadMore from '../LoadMore';
 
 import './styles.scss';
+
+// assets
+import Loading from '../../assets/imgs/Loading.gif';
 
 const mapState = ({ products }) => ({
     products: products.products
@@ -21,11 +24,20 @@ const ProductResults = props => {
 
     const { products } = useSelector(mapState);
     const { data, queryDoc, isLastPage } = products;
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        if (products.data) setIsLoading(false);
+        else setIsLoading(true);
+    })
 
     useEffect(() => {
         dispatch(
             fetchProductsStart({ filterType })
         )
+        return () => {
+            dispatch(setProducts({}));
+        }
     }, [filterType]);
 
     const handleFilter = (e) => {
@@ -33,9 +45,7 @@ const ProductResults = props => {
         history.push(`/search/${nextFilter}`)
     }
 
-    if(!Array.isArray(data)) return null;
-
-    if(data.length < 1) {
+    if (Array.isArray(data) && data.length < 1) {
         return (
             <div className="productResults">
                 <p>
@@ -47,7 +57,7 @@ const ProductResults = props => {
 
     const congfigFilter = {
         defaultValue: filterType,
-        options : [{
+        options: [{
             name: 'Show all',
             value: ''
         }, {
@@ -56,7 +66,7 @@ const ProductResults = props => {
         }, {
             name: 'Alternate Reality',
             value: 'alternate-reality'
-        },{
+        }, {
             name: 'Originals',
             value: 'originals'
         }],
@@ -67,8 +77,8 @@ const ProductResults = props => {
 
     const handleLoadMore = () => {
         dispatch(
-            fetchProductsStart({ 
-                filterType, 
+            fetchProductsStart({
+                filterType,
                 startAfterDoc: queryDoc,
                 persistProducts: data
             })
@@ -81,34 +91,38 @@ const ProductResults = props => {
 
     return (
         <div className="productResults">
+            {isLoading ? <img src={Loading} style={{ margin: '40vh auto', display: 'block' }} /> : (
+                <>
+                    <h2>
+                        Browse Products
+                        </h2>
 
-            <h2>
-                Browse Products
-            </h2>
+                    <div className="productCategory">
+                        <FormSelect {...congfigFilter} />
+                    </div>
 
-            <div className="productCategory">
-                <FormSelect {...congfigFilter} />
-            </div>
+                    <div className="products">
+                        {data.map((product, index) => {
+                            const { productThumbnail, productName, productPrice } = product;
 
-            <div className="products">
-                {data.map( (product, index) => {
-                    const { productThumbnail, productName, productPrice } = product;
+                            if (!productThumbnail || !productName ||
+                                typeof productPrice === 'undefined') return null;
 
-                    if(!productThumbnail || !productName || 
-                        typeof productPrice === 'undefined' ) return null;
+                            const configProduct = {
+                                ...product
+                            }
 
-                    const configProduct = {
-                        ...product
+                            return (
+                                <Product key={index} {...configProduct} />
+                            )
+                        })}
+                    </div>
+                    {!isLastPage &&
+                        <LoadMore {...configLoadMore} />
+
                     }
-
-                    return (    
-                        <Product key={index} {...configProduct} />
-                    )
-                })}
-            </div>
-            {!isLastPage &&
-                <LoadMore {...configLoadMore} />
-
+                </>
+            )
             }
         </div>
     )
