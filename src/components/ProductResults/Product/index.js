@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import ImgSlider from '../ImgSlider';
@@ -8,6 +8,8 @@ import Button from '../../forms/Button';
 
 // actions
 import { addProduct } from '../../../redux/Cart/cart.actions';
+
+import mixpanel from 'mixpanel-browser';
 
 const Product = (product) => {
     const dispatch = useDispatch();
@@ -21,6 +23,15 @@ const Product = (product) => {
         productName,
         productPrice
     } = product;
+
+    useEffect(() => {
+        // MIXPANEL
+        mixpanel.track('product view', {
+            product: productName,
+            productId: documentID,
+            productPrice,
+        })
+    })
 
     const [showSlider, setShowSlider] = useState(false);
 
@@ -38,6 +49,13 @@ const Product = (product) => {
         dispatch(
             addProduct(product)
         )
+
+        // MIXPANEL
+        mixpanel.track('Add to cart', {
+            product: productName,
+            productId: documentID,
+            productPrice,
+        })
         history.push('/cart')
     };
 

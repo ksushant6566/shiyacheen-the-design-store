@@ -10,8 +10,6 @@ import AdminToolbar from './components/AdminToolbar';
 // styles
 import './default.scss'
 
-// utils
-
 // hoc
 import WithAuth from './hoc/withAuth';
 import WithAdminAuth from './hoc/withAdminAuth'
@@ -34,6 +32,10 @@ import ProductDetails from './pages/ProductDetails';
 import Cart from "./pages/Cart";
 import Payment from './pages/Payment';
 import Order from './pages/Order';
+
+// MIXPANEL import and initalisation
+import mixpanel from 'mixpanel-browser';
+mixpanel.init('eeb84ce4d3b8542c1fdb063fa4fcfda4');
 
 
 

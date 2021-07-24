@@ -13,6 +13,8 @@ import './styles.scss';
 // assets
 import Loading from '../../assets/imgs/Loading.gif';
 
+import mixpanel from 'mixpanel-browser';
+
 const mapState = ({ products }) => ({
     products: products.products
 })
@@ -35,12 +37,23 @@ const ProductResults = props => {
         dispatch(
             fetchProductsStart({ filterType })
         )
+        
+        // MIXPANEL
+        mixpanel.track('landed on products page', {
+            category: filterType
+        })
+
         return () => {
             dispatch(setProducts({}));
         }
     }, [filterType]);
 
     const handleFilter = (e) => {
+        // MIXPANEL
+        mixpanel.track('changed category', {
+            filter: nextFilter
+        })
+
         const nextFilter = e.target.value;
         history.push(`/search/${nextFilter}`)
     }

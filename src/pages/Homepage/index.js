@@ -8,7 +8,15 @@ import Art2 from '../../assets/imgs/Art-2.svg';
 import Art3 from '../../assets/imgs/Art-3.svg';
 import { Link } from 'react-router-dom';
 
+import mixpanel from 'mixpanel-browser';
+
 const Homepage = props => {
+
+
+    useEffect(() => {
+        // MIXPANEL
+        mixpanel.track('landed on products category page')
+    }, [])
 
     return (
         <>

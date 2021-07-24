@@ -12,6 +12,9 @@ import AuthWrapper from '../AuthWrapper';
 // redux actions
 import { emailSignInStart, googleSignInStart, } from '../../redux/User/user.actions';
 
+// MIXPANEL
+import mixpanel from 'mixpanel-browser';
+
 const mapState = ({ user }) => ({
     currentUser: user.currentUser
 })
@@ -43,6 +46,12 @@ const SignIn = () => {
                 password: '',
             })
             setProcessing(false)
+
+            // MIXPANEL track signin
+            mixpanel.track('Sign In', {
+                'source': "Sachin's affiliate site",
+                'Opted out of email': true,
+              });
             history.push('/');
         }
     }, [currentUser])

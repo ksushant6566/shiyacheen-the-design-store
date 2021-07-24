@@ -14,6 +14,9 @@ import { signUpUserStart } from '../../redux/User/user.actions';
 // utils
 import AuthWrapper from '../AuthWrapper';
 
+// MIXPANEL
+import mixpanel from 'mixpanel-browser';
+
 const mapState = ({ user }) => ({
     currentUser: user.currentUser,
     userErr: user.userErr
@@ -53,8 +56,22 @@ const SignUp = props => {
             err: [''],
         })
         setProcessing(false);
+
+        mixpanel.alias(currentUser.id)
+        mixpanel.people.set({
+            name: currentUser.displayName,
+            email: currentUser.email,
+            type: 'premium'
+        })
+        
+        mixpanel.identify(currentUser.id)
+        mixpanel.track('signup', {
+            source: "Sachin's affiliate site",
+            'method of registeration': "email",
+        })
+
         history.push('/');
-    }
+        }
     }, [currentUser]);
 
     useEffect(() => {
