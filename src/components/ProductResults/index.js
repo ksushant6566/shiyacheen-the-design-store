@@ -34,6 +34,7 @@ const ProductResults = props => {
     })
 
     useEffect(() => {
+        setIsLoading(true);
         dispatch(
             fetchProductsStart({ filterType })
         )
